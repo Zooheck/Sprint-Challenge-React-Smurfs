@@ -1,20 +1,54 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import axios from 'axios'
 import './App.css';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
 
+const blankSmurf = {
+  name: '',
+  age: 0,
+  height: ''
+}
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       smurfs: [],
+      newSmurf: {
+        name: '',
+        age: 0,
+        height: ''
+      }
     };
   }
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
   // Notice what your map function is looping over and returning inside of Smurfs.
   // You'll need to make sure you have the right properties on state and pass them down to props.
+  handleInputChange = e => {
+    e.persist()
+    const { name, value } = e.target
+    this.setState(previousState => {
+      return {
+        newSmurf: {
+          ...previousState.newSmurf,
+          [name]: value
+        }
+      }
+    })
+  };
+  addSmurf = event => {
+    event.preventDefault();
+    // add code to create the smurf using the api
+    axios.post('http://localhost:3333/smurfs', this.state.newSmurf )
+      .then(response => {
+        this.setState({
+          smurfs: response.data,
+          newSmurf: blankSmurf
+        })
+      })
+    this.props.history.push('/')
+  }
   componentDidMount = () => {
     axios
       .get('http://localhost:3333/smurfs')
@@ -29,10 +63,12 @@ class App extends Component {
       })
   }
   render() {
+    const { name, age, height } = this.state.newSmurf
     return (
       <div className="App">
         <Route exact path="/" render={props => <Smurfs {...props} smurfs={this.state.smurfs}/>}/>
-        <Route path="/add-smurf" render={props => <SmurfForm {...props}/>}/>
+        <Route path="/add-smurf" render={props => <SmurfForm {...props} handleInputChange={this.handleInputChange} addSmurf={this.addSmurf} newName={name} newAge={age} newHeight={height}/>}/>
+        <Link to="/add-smurf"><button>Add New Smurf</button></Link>
       </div>
     );
   }
