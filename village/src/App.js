@@ -49,6 +49,16 @@ class App extends Component {
       })
     this.props.history.push('/')
   }
+  deleteSmurf = (id) => {
+    axios
+      .delete(`http://localhost:3333/smurfs/${id}`)
+      .then(response => {
+        this.setState({smurfs: response.data})
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
   componentDidMount = () => {
     axios
       .get('http://localhost:3333/smurfs')
@@ -67,7 +77,7 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar />
-        <Route exact path="/" render={props => <Smurfs {...props} smurfs={this.state.smurfs}/>}/>
+        <Route exact path="/" render={props => <Smurfs {...props} smurfs={this.state.smurfs} deleteSmurf={this.deleteSmurf}/>}/>
         <Route path="/add-smurf" render={props => <SmurfForm {...props} handleInputChange={this.handleInputChange} addSmurf={this.addSmurf} newName={name} newAge={age} newHeight={height}/>}/>
       </div>
     );
