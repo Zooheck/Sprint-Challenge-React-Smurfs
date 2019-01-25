@@ -1,6 +1,6 @@
 .navbar {
     color: white;
-    background-color: blue;
+    background-color: #3897F0;
     display: flex;
     padding: 20px 30px;
     position: fixed;
@@ -11,4 +11,8 @@
 .navbar a {
     color: white;
     margin-right: 30px;
+    text-decoration: none;
+}
+.navbar .active {
+    text-decoration: underline;
 }
