@@ -4,7 +4,7 @@ import axios from 'axios'
 import './App.css';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
-
+import NavBar from './components/NavBar'
 const blankSmurf = {
   name: '',
   age: 0,
@@ -66,9 +66,9 @@ class App extends Component {
     const { name, age, height } = this.state.newSmurf
     return (
       <div className="App">
+        <NavBar />
         <Route exact path="/" render={props => <Smurfs {...props} smurfs={this.state.smurfs}/>}/>
         <Route path="/add-smurf" render={props => <SmurfForm {...props} handleInputChange={this.handleInputChange} addSmurf={this.addSmurf} newName={name} newAge={age} newHeight={height}/>}/>
-        <Link to="/add-smurf"><button>Add New Smurf</button></Link>
       </div>
     );
   }
