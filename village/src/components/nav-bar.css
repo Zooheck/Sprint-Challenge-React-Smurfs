@@ -1,0 +1,14 @@
+.navbar {
+    color: white;
+    background-color: blue;
+    display: flex;
+    padding: 20px 30px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin-bottom: 40px;
+}
+.navbar a {
+    color: white;
+    margin-right: 30px;
+}

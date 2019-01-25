@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import './smurf-form.css'
 const SmurfForm = (props) => {
   // constructor(props) {
   //   super(props);
@@ -39,7 +40,7 @@ const SmurfForm = (props) => {
   // };
 
     return (
-      <div className="SmurfForm">
+      <div className="smurf-form">
         <form onSubmit={props.addSmurf}>
           <input
             onChange={props.handleInputChange}
