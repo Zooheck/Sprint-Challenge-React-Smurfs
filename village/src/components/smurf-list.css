@@ -16,6 +16,22 @@
     border-radius: 5px;
     margin-bottom: 20px;
 }
+.smurf .update-smurf {
+    width: 200px;
+    color: white;
+    background-color: #3897F0;
+    margin: auto;
+    margin-bottom: 5px;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    padding: 6px 0px;
+    font-size: 1.1rem;
+}
+.smurf .update-smurf:active {
+    transform: scale(0.99);
+}
+
 .smurf .delete-smurf {
     width: 200px;
     color: white;

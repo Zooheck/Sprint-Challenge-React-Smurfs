@@ -39,7 +39,7 @@ class App extends Component {
     })
   };
   addSmurf = event => {
-    event.preventDefault();
+    // event.preventDefault();
     // add code to create the smurf using the api
     axios.post('http://localhost:3333/smurfs', this.state.newSmurf )
       .then(response => {
