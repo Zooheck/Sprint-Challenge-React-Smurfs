@@ -19,7 +19,8 @@ class App extends Component {
         name: '',
         age: 0,
         height: ''
-      }
+      },
+      isUpdatingSmurf: false
     };
   }
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
@@ -59,6 +60,30 @@ class App extends Component {
         console.log(error)
       })
   }
+  populateForm = (id) => {
+    this.setState({
+      newSmurf: this.state.smurfs.find(smurf => smurf.id === id),
+      isUpdatingSmurf: true
+    })
+    this.props.history.push('/add-smurf');
+  }
+  updateSmurf = () => {
+    const id = this.state.newSmurf.id
+    axios
+      .put(`http://localhost:3333/smurfs/${id}`, this.state.newSmurf)
+      .then(response => {
+        this.setState({
+          smurfs: response.data,
+          newSmurf: blankSmurf,
+          isUpdatingSmurf: false
+        })
+        
+      })
+      .catch(error => {
+        console.log(error)
+      })
+      this.props.history.push('/')
+  }
   componentDidMount = () => {
     axios
       .get('http://localhost:3333/smurfs')
@@ -77,8 +102,8 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar />
-        <Route exact path="/" render={props => <Smurfs {...props} smurfs={this.state.smurfs} deleteSmurf={this.deleteSmurf}/>}/>
-        <Route path="/add-smurf" render={props => <SmurfForm {...props} handleInputChange={this.handleInputChange} addSmurf={this.addSmurf} newName={name} newAge={age} newHeight={height}/>}/>
+        <Route exact path="/" render={props => <Smurfs {...props} smurfs={this.state.smurfs} populateForm={this.populateForm} deleteSmurf={this.deleteSmurf}/>}/>
+        <Route path="/add-smurf" render={props => <SmurfForm {...props} handleInputChange={this.handleInputChange} addSmurf={this.addSmurf} updateSmurf={this.updateSmurf} isUpdatingSmurf={this.state.isUpdatingSmurf} newName={name} newAge={age} newHeight={height}/>}/>
       </div>
     );
   }
