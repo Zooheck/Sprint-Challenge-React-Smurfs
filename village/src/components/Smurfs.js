@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
 import Smurf from './Smurf';
+import './smurf-list.css'
+const Smurfs = (props) => {
 
-class Smurfs extends Component {
-  render() {
     return (
-      <div className="Smurfs">
+      <div className="smurf-village">
         <h1>Smurf Village</h1>
-        <ul>
-          {this.props.smurfs.map(smurf => {
+        <div className="smurf-list-container">
+          {props.smurfs.map(smurf => {
             return (
               <Smurf
                 name={smurf.name}
@@ -16,14 +16,16 @@ class Smurfs extends Component {
                 age={smurf.age}
                 height={smurf.height}
                 key={smurf.id}
+                populateForm={props.populateForm}
+                deleteSmurf={props.deleteSmurf}
               />
             );
           })}
-        </ul>
+        </div>
       </div>
     );
   }
-}
+
 
 Smurf.defaultProps = {
  smurfs: [],
